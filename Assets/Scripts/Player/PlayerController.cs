@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-
+    
     [Range(0f, 20f)]
     public float Speed = 3.0f;
     [Range(0f, 20f)]
@@ -16,13 +13,23 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector3 forwardMovementVector; 
     private Vector3 strafeMovementVector;
+
+    public GameObject TempSpawnPrefab;
+
     //public float TurnSpeed = 60.0f;  
-    //private boolean IsGrounded
+    //private boolean IsGrounded;
+    //private boolean IsRunning;
+    //private boolean ISWalking
 
     void Start()
     {
         this.rb = this.GetComponent<Rigidbody>();
         this.ToDefaultPosition();
+        //TEMPORARY
+        Instantiate(
+            TempSpawnPrefab, 
+            new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 15f), 
+            Quaternion.Euler(0, 0, 0));
     }
 
     private void FixedUpdate()

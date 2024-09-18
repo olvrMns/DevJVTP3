@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &449253421 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
+  m_PrefabInstance: {fileID: 1965327762}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1001718331}
+  - component: {fileID: 1001718332}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -356,6 +362,20 @@ Transform:
   - {fileID: 1802015039}
   m_Father: {fileID: 1964419559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1001718332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001718330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b1906a4c36e734db0d4cf7965b4490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventorySize: 10
+  _objects: []
 --- !u!1 &1272606125
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,8 +511,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 14.73
-  StrafeSpeed: 9.65
+  StrafeSpeed: 12.6
   InitialTerrain: {fileID: 1837622693}
+  TempSpawnPrefab: {fileID: 8423108358687095584, guid: b554c43898852024cbf4d18b615ce8b3, type: 3}
 --- !u!1 &1837622691
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,10 +693,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerModel
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
+      propertyPath: m_TagString
+      value: Playable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048793309308852666, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 659574199126064034, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
     - target: {fileID: 1048793309308852666, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
       propertyPath: m_RootBone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 449253421}
     - target: {fileID: 1048793309308852666, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
