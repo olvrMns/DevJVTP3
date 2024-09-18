@@ -41,10 +41,8 @@ public class PlayerController : MonoBehaviour
 
     private void ToDefaultPosition()
     {
-        this.rb.transform.position = new Vector3(
-            this.InitialTerrain.transform.position.x + (this.InitialTerrain.transform.position.x * 0.50f),
-            this.InitialTerrain.transform.position.y,
-            this.InitialTerrain.transform.position.z + (this.InitialTerrain.transform.position.z * 0.05f)
-        );
+        this.rb.transform.position += new Vector3(this.InitialTerrain.terrainData.size.x * 0.50f, 
+            this.InitialTerrain.transform.position.y, 
+            this.InitialTerrain.transform.position.z * 0.05f);
     }
 }
