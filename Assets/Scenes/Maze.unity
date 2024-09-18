@@ -514,6 +514,20 @@ MonoBehaviour:
   StrafeSpeed: 12.6
   InitialTerrain: {fileID: 1837622693}
   TempSpawnPrefab: {fileID: 8423108358687095584, guid: b554c43898852024cbf4d18b615ce8b3, type: 3}
+--- !u!114 &1802015043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802015038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a858f1464ad344c8081f3093ff3073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Terrain: {fileID: 1837622693}
+  PlayerController: {fileID: 1802015042}
 --- !u!1 &1837622691
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +736,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1802015042}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1802015043}
   m_SourcePrefab: {fileID: 100100000, guid: 6ab67793ca3ff42418b9cf95dac6bb3b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

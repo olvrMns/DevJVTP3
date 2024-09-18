@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         //TEMPORARY
         Instantiate(
             TempSpawnPrefab, 
-            new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 15f), 
+            new Vector3(this.transform.position.x, this.transform.position.y + 0.02f, this.transform.position.z + 15f), 
             Quaternion.Euler(0, 0, 0));
     }
 
@@ -46,10 +46,11 @@ public class PlayerController : MonoBehaviour
         //this.rb.transform.Rotate(rotation);
     }
 
-    private void ToDefaultPosition()
+    public void ToDefaultPosition()
     {
-        this.rb.transform.position += new Vector3(this.InitialTerrain.terrainData.size.x * 0.50f, 
-            this.InitialTerrain.transform.position.y, 
-            this.InitialTerrain.transform.position.z * 0.05f);
+        this.transform.position = new Vector3(
+                this.InitialTerrain.transform.position.x + (this.InitialTerrain.terrainData.size.x * 0.5f),
+                this.InitialTerrain.transform.position.y,
+                this.InitialTerrain.transform.position.z + (this.InitialTerrain.terrainData.size.z * 0.05f));
     }
 }
