@@ -7,6 +7,7 @@ public class DoorHandler : MonoBehaviour
 {
 
     public Animator Animator;
+    public GameObject RequiredItem;
 
     void Start()
     {
@@ -15,11 +16,11 @@ public class DoorHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Playable" && Inventory.GetInstance().Has("RustedKey"))
+        if (collision.gameObject.tag == "Playable" && Inventory.GetInstance().Has(this.RequiredItem.name))
         {
             this.Animator.SetBool("IsOpened", true);
             this.Animator.SetBool("IsClosed", false);
-            Inventory.GetInstance().RemoveFirst("RustedKey");
+            Inventory.GetInstance().RemoveFirst(this.RequiredItem.name);
         } 
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 //Inventory is linked to PlayerObject (for Start() Method)
@@ -55,7 +56,6 @@ public class Inventory : MonoBehaviour
     public void RemoveFirst(string name)
     {
         for (int elem = 0; elem < _objects.Count; elem++)
-        {
             if (_objects[elem].name.Contains(name))
             {
                 //the object still exists for a bit after destruction event init
@@ -63,6 +63,12 @@ public class Inventory : MonoBehaviour
                 _objects.Remove(_objects[elem]);
                 break;
             }
-        }
+    }
+
+    public bool HasAtLeast(string name, int occurenceCount)
+    {
+        int count = 0;
+        for (int elem = 0; elem < _objects.Count; elem++) if (_objects[elem].name.Contains(name)) count++;
+        return count >= occurenceCount;
     }
 }
