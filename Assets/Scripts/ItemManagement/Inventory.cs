@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,5 +44,25 @@ public class Inventory : MonoBehaviour
     public bool HasSpace()
     {
         return _objects.Count < this.InventorySize;
+    }
+
+    public bool Has(string name)
+    {
+        for (int elem = 0; elem < _objects.Count; elem++) if (_objects[elem].name.Contains(name)) return true;
+        return false;
+    }
+
+    public void RemoveFirst(string name)
+    {
+        for (int elem = 0; elem < _objects.Count; elem++)
+        {
+            if (_objects[elem].name.Contains(name))
+            {
+                //the object still exists for a bit after destruction event init
+                Destroy(_objects[elem]);
+                _objects.Remove(_objects[elem]);
+                break;
+            }
+        }
     }
 }
