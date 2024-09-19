@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//https://www.youtube.com/watch?v=FF6kezDQZ7s&list=PLwyUzJb_FNeTQwyGujWRLqnfKpV-cj-eO&index=3 (Animation)
 public class PlayerController : MonoBehaviour
 {
     
@@ -8,41 +9,35 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 20f)]
     public float StrafeSpeed = 5.0f;
     public Terrain InitialTerrain;
+    public Animator Animator;
     private float horizontalInput;
     private float forwardInput;
     private Rigidbody rb;
     private Vector3 forwardMovementVector; 
     private Vector3 strafeMovementVector;
-
-    public GameObject TempSpawnPrefab;
-
-    //public float TurnSpeed = 60.0f;  
-    //private boolean IsGrounded;
-    //private boolean IsRunning;
-    //private boolean ISWalking
+    //public float TurnSpeed = 60.0f;
 
     void Start()
     {
         this.rb = this.GetComponent<Rigidbody>();
+        this.Animator = this.GetComponent<Animator>();
         this.ToDefaultPosition();
-        //TEMPORARY
-        Instantiate(
-            TempSpawnPrefab, 
-            new Vector3(this.transform.position.x, this.transform.position.y + 0.02f, this.transform.position.z + 15f), 
-            Quaternion.Euler(0, 0, 0));
     }
 
     private void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) this.Animator.SetBool("IsWalking", true);  
+        else this.Animator.SetBool("IsWalking", false);
+
         this.horizontalInput = Input.GetAxis("Horizontal");
         this.forwardInput = Input.GetAxis("Vertical");
 
-        this.forwardMovementVector = this.transform.forward * forwardInput * this.Speed * Time.fixedDeltaTime;  
-        this.strafeMovementVector = this.transform.right * horizontalInput * this.StrafeSpeed * Time.fixedDeltaTime;  
+        this.forwardMovementVector = this.transform.forward * this.forwardInput * this.Speed * Time.fixedDeltaTime;  
+        this.strafeMovementVector = this.transform.right * this.horizontalInput * this.StrafeSpeed * Time.fixedDeltaTime;  
 
         rb.MovePosition(this.rb.position + this.forwardMovementVector + this.strafeMovementVector);
 
-        //Vector3 rotation = new Vector3(0f, horizontalInput * turnSpeed * Time.fixedDeltaTime, 0f);
+        //Vector3 rotation = new Vector3(0f, this.horizontalInput * this.TurnSpeed * Time.fixedDeltaTime, 0f);
         //this.rb.transform.Rotate(rotation);
     }
 

@@ -13,4 +13,9 @@ public class Reset : MonoBehaviour
             PlayerController.ToDefaultPosition();
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space)) PlayerController.ToDefaultPosition();
+    }
 }
