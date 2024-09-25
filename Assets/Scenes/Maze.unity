@@ -1008,6 +1008,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowableEntity: {fileID: 790287633}
   RelativeHeightOffSet: 15
+  Sensitivity: 2
+  IsTopDown: 0
 --- !u!1 &1001718330
 GameObject:
   m_ObjectHideFlags: 0
