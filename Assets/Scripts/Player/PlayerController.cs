@@ -46,6 +46,6 @@ public class PlayerController : MonoBehaviour
         this.transform.position = new Vector3(
                 this.InitialTerrain.transform.position.x + (this.InitialTerrain.terrainData.size.x * 0.5f),
                 this.InitialTerrain.transform.position.y,
-                this.InitialTerrain.transform.position.z + (this.InitialTerrain.terrainData.size.z * 0.05f));
+                this.InitialTerrain.transform.position.z + (this.InitialTerrain.terrainData.size.z * 0.10f));
     }
 }

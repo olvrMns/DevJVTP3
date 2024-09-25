@@ -29,14 +29,15 @@ public class BorderSet : MonoBehaviour
         Quaternion zEulerAngle = Quaternion.Euler(0, 0, 0);
 
         GameObject xWall1 = Instantiate(this.WallTemplate, this.terrainPositionVector, xEulerAngle, parent);
-        xWall1.transform.localScale += new Vector3(0, CameraController.RelativeHeightOffSet/2, this.terrainSizeVector.x);
+        
+        xWall1.transform.localScale += new Vector3(0, CameraController.RelativeHeightOffSet, this.terrainSizeVector.x);
         xWall1.transform.position += new Vector3(this.terrainSizeVector.x/2, xWall1.transform.localScale.y/2, 0);
 
         GameObject xWall2 = Instantiate(xWall1, xWall1.transform.position, xEulerAngle, parent);
         xWall2.transform.position += new Vector3(0, 0, this.terrainSizeVector.z);
 
         GameObject zWall3 = Instantiate(this.WallTemplate, this.terrainPositionVector, zEulerAngle, parent);
-        zWall3.transform.localScale += new Vector3(0, CameraController.RelativeHeightOffSet / 2, this.terrainSizeVector.z);
+        zWall3.transform.localScale += new Vector3(0, CameraController.RelativeHeightOffSet, this.terrainSizeVector.z);
         zWall3.transform.position += new Vector3(0, zWall3.transform.localScale.y/2, this.terrainSizeVector.z/2);
 
         GameObject zWall4 = Instantiate(zWall3, zWall3.transform.position, zEulerAngle, parent);
