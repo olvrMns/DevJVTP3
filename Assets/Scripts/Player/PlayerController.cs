@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rb.AddForce(new Vector3(0, 0.5f * this.JumpForce, 0), ForceMode.Impulse);
+        rb.AddForce(new Vector3(0, 0.2f * this.JumpForce, 0), ForceMode.Impulse);
     }
 
     private void SetCollider()
@@ -69,8 +69,6 @@ public class PlayerController : MonoBehaviour
         this.strafeMovementVector = this.transform.right * this.horizontalInput * this.StrafeSpeed * Time.fixedDeltaTime;  
 
         rb.MovePosition(this.rb.position + this.forwardMovementVector + this.strafeMovementVector);
-
-        Debug.Log(isGrounded);
 
         //Vector3 rotation = new Vector3(0f, this.horizontalInput * this.TurnSpeed * Time.fixedDeltaTime, 0f);
         //this.rb.transform.Rotate(rotation);
