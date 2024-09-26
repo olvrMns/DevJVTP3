@@ -64,8 +64,6 @@ public class CameraController : MonoBehaviour
 
         if (this.IsTopDown) this.FollowEntityInTopDown();
         else this.FollowEntityInFirstPerson();
-
-        Debug.Log(Input.GetAxis("Mouse X"));
     }
 
 }
