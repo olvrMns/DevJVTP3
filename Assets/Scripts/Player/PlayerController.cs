@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 20f)]
     public float StrafeSpeed = 5.0f;
     public Terrain InitialTerrain;
-    public Animator Animator;
+    private Animator animator;
     private float horizontalInput;
     private float forwardInput;
     private Rigidbody rb;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         this.SetCollider();
         this.rb = this.GetComponent<Rigidbody>();
-        this.Animator = this.GetComponent<Animator>();
+        this.animator = this.GetComponent<Animator>();
         this.ToDefaultPosition();
     }
 
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
         this.SetIsGrounded();
         if (Input.GetKey(KeyCode.Space) && this.isGrounded) this.Jump();
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) this.Animator.SetBool("IsWalking", true);  
-        else this.Animator.SetBool("IsWalking", false);
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) this.animator.SetBool("IsWalking", true);  
+        else this.animator.SetBool("IsWalking", false);
          
         this.horizontalInput = Input.GetAxis("Horizontal");
         this.forwardInput = Input.GetAxis("Vertical");

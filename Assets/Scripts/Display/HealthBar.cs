@@ -21,7 +21,6 @@ public class HealthBar : MonoBehaviour
     private void SetFillAmountToVirtualHealth()
     {
         this.HealthBarImage.fillAmount = this.VirtualHealth/this.VirtualMaxHealth;
-        Debug.Log(this.HealthBarImage.fillAmount);
     }
 
     public void UpdateHealth(beforeSet execute)
@@ -30,25 +29,34 @@ public class HealthBar : MonoBehaviour
         this.SetFillAmountToVirtualHealth();
     }
 
+    public void ToFullHealth()
+    {
+        this.UpdateHealth(() => this.VirtualHealth = this.VirtualMaxHealth);
+    }
+
+    public void ToZeroHealth()
+    {
+        this.UpdateHealth(() => this.VirtualHealth = 0f);
+    }
 
     //for different effects
     public void Heal(float by)
     {
-        this.UpdateHealth(() => this.VirtualHealth += by);
+        if (!(this.VirtualHealth + by >= this.VirtualMaxHealth))
+            this.UpdateHealth(() => this.VirtualHealth += by);
+        else this.UpdateHealth(() => this.ToFullHealth());
     }
 
     //for different effects
     public void ReduceHealth(float by)
     {
-        this.UpdateHealth(() => this.VirtualHealth -= by);
+        if (!(this.VirtualHealth - by <= 0))
+            this.UpdateHealth(() => this.VirtualHealth -= by);
+        else this.UpdateHealth(() => this.ToZeroHealth());
     }
 
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.K)) 
-    //    {
-    //        this.ReduceHealth(10);
-    //    }
-
-    //}
+    void Update()
+    {
+        this.Heal(0.01f);
+    }
 }

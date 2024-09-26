@@ -4,15 +4,40 @@ using UnityEngine;
 
 public class MutantAnimationController : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public float Damage = 20f;
+    public HealthBar PlayerHealthBar;
+
+    private Animator animator;
+
     void Start()
     {
-        
+        this.animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    //SHOULD BE IN A UTILITY CLASS
+    private bool CollisionObjectIsPlayer(Collision collision)
     {
-        
+        if (collision.gameObject.tag == "Playable") return true;
+        else return false;
     }
+
+    //SHOULD BE RANGED BASED / NOT BOOL
+    private void OnCollisionStay(Collision collision)
+    {
+        if (this.CollisionObjectIsPlayer(collision))
+        {
+            this.animator.SetBool("PlayerIsNear", true);
+            this.PlayerHealthBar.ReduceHealth(this.Damage);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (this.CollisionObjectIsPlayer(collision))
+        {
+            this.animator.SetBool("PlayerIsNear", false);
+        }
+    }
+
 }
