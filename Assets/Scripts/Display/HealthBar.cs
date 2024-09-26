@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,11 @@ public class HealthBar : MonoBehaviour
     [Range(100f, 2000f)]
     public float VirtualMaxHealth = 500f;
     public float VirtualHealth;
+    [Range(0.001f, 1f)]
+    public float RegenerationPercentage = 0.01f;
+
+    public TextMeshProUGUI DisplayText;
+
     public delegate void beforeSet();
 
     void Start()
@@ -57,6 +63,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        this.Heal(0.1f);
+        this.Heal(this.VirtualMaxHealth * this.RegenerationPercentage);
+        this.DisplayText.SetText(((int)this.VirtualHealth).ToString());
     }
 }

@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 forwardMovementVector; 
     private Vector3 strafeMovementVector;
 
+    public HealthBar EnerygyBar;
+    public HealthBar HealthBar;
+
+    [Range(0.01f, 10f)]
+    public float EnergyReduction = 5f;  
+
     //https://discussions.unity.com/t/can-someone-help-me-make-a-simple-jump-script/145307/2
     private bool isGrounded = true;
     public float JumpForce = 2.0f;
@@ -46,6 +52,7 @@ public class PlayerController : MonoBehaviour
         capsuleCollider.height = 2.3f;
         capsuleCollider.center = new Vector3(0, 1, 0);
     }
+
     public void ToDefaultPosition()
     {
         this.transform.position = new Vector3(
@@ -56,11 +63,20 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        this.SetIsGrounded();
-        if (Input.GetKey(KeyCode.Space) && this.isGrounded) this.Jump();
+        if (this.HealthBar.VirtualHealth <= 0 || this.EnerygyBar.VirtualHealth <= 0) UnityEditor.EditorApplication.isPlaying = false; //Application.Quit
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) this.animator.SetBool("IsWalking", true);  
-        else this.animator.SetBool("IsWalking", false);
+        this.SetIsGrounded();
+        if (Input.GetKey(KeyCode.Space) && this.isGrounded)
+        {
+            this.Jump();
+            this.EnerygyBar.ReduceHealth(this.EnergyReduction * 4f);
+        }
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            this.animator.SetBool("IsWalking", true);
+            this.EnerygyBar.ReduceHealth(this.EnergyReduction * 2);
+        } else this.animator.SetBool("IsWalking", false);
          
         this.horizontalInput = Input.GetAxis("Horizontal");
         this.forwardInput = Input.GetAxis("Vertical");
@@ -70,8 +86,10 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(this.rb.position + this.forwardMovementVector + this.strafeMovementVector);
 
+
+        //Debug.Log(this.transform.position);
+
         //Vector3 rotation = new Vector3(0f, this.horizontalInput * this.TurnSpeed * Time.fixedDeltaTime, 0f);
         //this.rb.transform.Rotate(rotation);
     }
-
 }

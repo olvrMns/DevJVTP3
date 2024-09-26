@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Playable
   - Key
+  - Collectable
   layers:
   - Default
   - TransparentFX
