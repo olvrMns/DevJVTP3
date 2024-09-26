@@ -19,9 +19,17 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        this.SetCollider();
         this.rb = this.GetComponent<Rigidbody>();
         this.Animator = this.GetComponent<Animator>();
         this.ToDefaultPosition();
+    }
+
+    private void SetCollider()
+    {
+        CapsuleCollider capsuleCollider = this.GetComponent<CapsuleCollider>();
+        capsuleCollider.height = 2.3f;
+        capsuleCollider.center = new Vector3(0, 1, 0);
     }
 
     private void FixedUpdate()

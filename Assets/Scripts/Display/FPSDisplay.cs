@@ -20,7 +20,12 @@ public class FPSDisplay : MonoBehaviour
 
         this.fpsTextDisplay.fontSize = 23;
         this.fpsTextDisplay.alignment = TextAlignmentOptions.Center;
-        //this.fpsDisplayRectTransform.position = new Vector3(1300, -360, 0);
+        //1216 559
+        this.fpsDisplayRectTransform.position = new Vector3(
+            400, 
+            200, 
+            0);
+        
     }
 
     //private void OnGUI()
