@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: eac2ef371405749e0bd050b4c3272f16, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -364,14 +364,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18002741, g: 0.8666667, b: 0.14509803, a: 1}
+  m_Color: {r: 0.075429596, g: 0.3372549, b: 0.04705883, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 42f1fba4ab29cfe439b8e27f74ca8568, type: 3}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1581,7 +1581,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4025171102564998681, guid: 90fae884bed2af84c94d5f307c5ec58d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 82.9
+      value: 82.900024
       objectReference: {fileID: 0}
     - target: {fileID: 4025171102564998681, guid: 90fae884bed2af84c94d5f307c5ec58d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1589,7 +1589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4025171102564998681, guid: 90fae884bed2af84c94d5f307c5ec58d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 58.05
+      value: 58.049988
       objectReference: {fileID: 0}
     - target: {fileID: 4025171102564998681, guid: 90fae884bed2af84c94d5f307c5ec58d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1627,6 +1627,14 @@ PrefabInstance:
       propertyPath: PlayerHealthBar
       value: 
       objectReference: {fileID: 597230836}
+    - target: {fileID: 8712590286986480383, guid: 90fae884bed2af84c94d5f307c5ec58d, type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712590286986480383, guid: 90fae884bed2af84c94d5f307c5ec58d, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

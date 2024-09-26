@@ -5,7 +5,6 @@ public class FPSDisplay : MonoBehaviour
 {
 
     public FPSManager FPSManager;
-
     public GameObject FPSDisplayObject;
     private TextMeshProUGUI fpsTextDisplay;
     private RectTransform canvasRectTransform;
@@ -17,9 +16,9 @@ public class FPSDisplay : MonoBehaviour
         this.fpsDisplayRectTransform = FPSDisplayObject.GetComponent<RectTransform>();
         this.canvasRectTransform = this.GetComponent<RectTransform>();
         
-
         this.fpsTextDisplay.fontSize = 23;
         this.fpsTextDisplay.alignment = TextAlignmentOptions.Center;
+
         //1216 559
         this.fpsDisplayRectTransform.position = new Vector3(
             400, 

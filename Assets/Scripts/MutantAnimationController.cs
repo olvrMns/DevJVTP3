@@ -5,7 +5,7 @@ using UnityEngine;
 public class MutantAnimationController : MonoBehaviour
 {
 
-    public float Damage = 20f;
+    public float Damage = 10f;
     public HealthBar PlayerHealthBar;
 
     private Animator animator;

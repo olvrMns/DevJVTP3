@@ -57,6 +57,6 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        this.Heal(0.01f);
+        this.Heal(0.1f);
     }
 }
