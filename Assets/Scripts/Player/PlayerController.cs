@@ -33,16 +33,20 @@ public class PlayerController : MonoBehaviour
         this.SetCollider();
         this.rb = this.GetComponent<Rigidbody>();
         this.animator = this.GetComponent<Animator>();
-        this.ToDefaultPosition();
+        //this.ToDefaultPosition();
     }
 
     private void SetIsGrounded()
     {
-        this.isGrounded = this.transform.position.y <= this.InitialTerrain.transform.position.y + (this.InitialTerrain.transform.position.y * 0.01f);
+        if (Physics.Raycast(rb.transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hit, 0.25f))
+            isGrounded = true;
+        else isGrounded = false;
+
     }
 
     private void Jump()
     {
+        Debug.Log("JUMP");
         rb.AddForce(new Vector3(0, 0.2f * this.JumpForce, 0), ForceMode.Impulse);
     }
 
@@ -57,13 +61,14 @@ public class PlayerController : MonoBehaviour
     {
         this.transform.position = new Vector3(
                 this.InitialTerrain.transform.position.x + (this.InitialTerrain.terrainData.size.x * 0.5f),
-                this.InitialTerrain.transform.position.y,
+                1f,
                 this.InitialTerrain.transform.position.z + (this.InitialTerrain.terrainData.size.z * 0.10f));
     }
 
     private void FixedUpdate()
     {
-        if (this.HealthBar.VirtualHealth <= 0 || this.EnerygyBar.VirtualHealth <= 0) UnityEditor.EditorApplication.isPlaying = false; //Application.Quit
+        Debug.Log(this.HealthBar.VirtualHealth);
+        if (this.HealthBar.VirtualHealth <= 0 || this.EnerygyBar.VirtualHealth <= 0) UnityEditor.EditorApplication.isPlaying = false;
 
         this.SetIsGrounded();
         if (Input.GetKey(KeyCode.Space) && this.isGrounded)
@@ -76,20 +81,22 @@ public class PlayerController : MonoBehaviour
         {
             this.animator.SetBool("IsWalking", true);
             this.EnerygyBar.ReduceHealth(this.EnergyReduction * 2);
+            this.horizontalInput = Input.GetAxis("Horizontal");
+            this.forwardInput = Input.GetAxis("Vertical");
+
+            this.forwardMovementVector = this.transform.forward * this.forwardInput * this.Speed * Time.fixedDeltaTime;
+            this.strafeMovementVector = this.transform.right * this.horizontalInput * this.StrafeSpeed * Time.fixedDeltaTime;
+
+            //this.forwardMovementVector + this.strafeMovementVector
+            rb.MovePosition(this.rb.position + this.forwardMovementVector + this.strafeMovementVector);
         } else this.animator.SetBool("IsWalking", false);
-         
-        this.horizontalInput = Input.GetAxis("Horizontal");
-        this.forwardInput = Input.GetAxis("Vertical");
+    }
 
-        this.forwardMovementVector = this.transform.forward * this.forwardInput * this.Speed * Time.fixedDeltaTime;  
-        this.strafeMovementVector = this.transform.right * this.horizontalInput * this.StrafeSpeed * Time.fixedDeltaTime;  
-
-        rb.MovePosition(this.rb.position + this.forwardMovementVector + this.strafeMovementVector);
-
-
-        //Debug.Log(this.transform.position);
-
-        //Vector3 rotation = new Vector3(0f, this.horizontalInput * this.TurnSpeed * Time.fixedDeltaTime, 0f);
-        //this.rb.transform.Rotate(rotation);
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
     }
 }
