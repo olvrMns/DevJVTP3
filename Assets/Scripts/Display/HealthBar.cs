@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,6 +64,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
+        if (this.VirtualHealth <= 0) EditorApplication.isPlaying = false;
         this.Heal(this.VirtualMaxHealth * this.RegenerationPercentage);
         this.DisplayText.SetText(((int)this.VirtualHealth).ToString());
     }
