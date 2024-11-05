@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Classe de base représentant un état pour le NPC (personnage non joueur)
 public class State
 {
 
@@ -67,7 +64,6 @@ public class State
         return this;
     }
 
-    // Méthode pour vérifier si le NPC peut voir le joueur
     public bool CanSeePlayer()
     {
         Vector3 direction = player.position - npc.transform.position;
@@ -100,7 +96,6 @@ public class State
     }
 }
 
-// État "Idle" : NPC reste en attente
 public class Idle : State
 {
     public Idle(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
@@ -136,7 +131,6 @@ public class Idle : State
     }
 }
 
-// État "Patrol" : NPC patrouille autour des points de contrôle
 public class Patrol : State
 {
     int currentIndex = -1;
@@ -151,7 +145,6 @@ public class Patrol : State
 
     public override void Enter()
     {
-        // Trouve le point de patrouille le plus proche pour commencer
         float lastDistance = Mathf.Infinity;
         for (int i = 0; i < GameEnvironment.Singleton.Checkpoints.Count; ++i)
         {
@@ -201,7 +194,6 @@ public class Patrol : State
     }
 }
 
-// État "Pursue" : NPC poursuit le joueur
 public class Pursue : State
 {
     public Pursue(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
@@ -244,7 +236,6 @@ public class Pursue : State
     }
 }
 
-// État "Attack" : NPC attaque le joueur
 public class Attack : State
 {
     float rotationSpeed = 2.0f;
@@ -288,7 +279,6 @@ public class Attack : State
     }
 }
 
-// État "RunAway" : NPC s'enfuit vers un lieu sûr
 public class RunAway : State
 {
     GameObject safeLocation;
