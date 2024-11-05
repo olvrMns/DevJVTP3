@@ -4,39 +4,35 @@ using UnityEngine.AI;
 public class State
 {
 
-    // Différents états possibles pour le NPC
     public enum STATE
     {
-        IDLE,      // En attente
-        PATROL,    // En patrouille
-        PURSUE,    // En poursuite du joueur
-        ATTACK,    // En attaque
-        SLEEP,     // En sommeil
-        RUNAWAY    // En fuite vers une zone sécurisée
+        IDLE,
+        PATROL,
+        PURSUE,    
+        ATTACK,
+        SLEEP,  
+        //RUNAWAY
     };
 
-    // Événements d'état pour gérer les transitions
     public enum EVENT
     {
-        ENTER,     // Entrée dans un état
-        UPDATE,    // Mise à jour pendant un état
-        EXIT       // Sortie d'un état
+        ENTER,    
+        UPDATE,    
+        EXIT       
     };
 
-    public STATE name;                   // Nom de l'état actuel
-    protected EVENT stage;               // Événement actuel de l'état
-    protected GameObject npc;            // Référence au NPC
-    protected Animator anim;             // Contrôleur d'animation du NPC
-    protected Transform player;          // Référence au joueur
-    protected State nextState;           // Prochain état du NPC
-    protected NavMeshAgent agent;        // Agent de navigation pour les déplacements
+    public STATE name;                 
+    protected EVENT stage;           
+    protected GameObject npc;         
+    protected Animator anim;          
+    protected Transform player;     
+    protected State nextState;         
+    protected NavMeshAgent agent;        
 
-    // Variables de distance et d'angle pour détecter le joueur
     float visDist = 10.0f;               // Distance de vision
     float visAngle = 30.0f;              // Angle de vision
-    float shootDist = 7.0f;              // Distance de tir
+    float attackDist = 7.0f;              // Distance de tir
 
-    // Constructeur pour initialiser les paramètres de l'état
     public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
     {
         npc = _npc;
@@ -88,10 +84,7 @@ public class State
     public bool CanAttackPlayer()
     {
         Vector3 direction = player.position - npc.transform.position;
-        if (direction.magnitude < shootDist)
-        {
-            return true;
-        }
+        if (direction.magnitude < attackDist) return true;
         return false;
     }
 }
@@ -106,7 +99,7 @@ public class Idle : State
 
     public override void Enter()
     {
-        anim.SetTrigger("isIdle"); // Déclenche l'animation d'attente
+        anim.SetTrigger("isIdle"); 
         base.Enter();
     }
 
@@ -126,7 +119,7 @@ public class Idle : State
 
     public override void Exit()
     {
-        anim.ResetTrigger("isIdle"); // Réinitialise l'animation d'attente
+        anim.ResetTrigger("isIdle");
         base.Exit();
     }
 }
@@ -165,13 +158,8 @@ public class Patrol : State
         if (agent.remainingDistance < 1)
         {
             if (currentIndex >= GameEnvironment.Singleton.Checkpoints.Count - 1)
-            {
                 currentIndex = 0;
-            }
-            else
-            {
-                currentIndex++;
-            }
+            else currentIndex++;
             agent.SetDestination(GameEnvironment.Singleton.Checkpoints[currentIndex].transform.position);
         }
 
@@ -180,11 +168,11 @@ public class Patrol : State
             nextState = new Pursue(npc, agent, anim, player);
             stage = EVENT.EXIT;
         }
-        else if (IsPlayerBehind())
-        {
-            nextState = new RunAway(npc, agent, anim, player);
-            stage = EVENT.EXIT;
-        }
+        //else if (IsPlayerBehind())
+        //{
+        //    nextState = new RunAway(npc, agent, anim, player);
+        //    stage = EVENT.EXIT;
+        //}
     }
 
     public override void Exit()
@@ -239,20 +227,17 @@ public class Pursue : State
 public class Attack : State
 {
     float rotationSpeed = 2.0f;
-    AudioSource shoot;
 
     public Attack(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
         : base(_npc, _agent, _anim, _player)
     {
         name = STATE.ATTACK;
-        shoot = _npc.GetComponent<AudioSource>();
     }
 
     public override void Enter()
     {
-        anim.SetTrigger("isShooting");
-        agent.isStopped = true;
-        shoot.Play();
+        anim.SetTrigger("isAttacking");
+        //agent.isStopped = true;
         base.Enter();
     }
 
@@ -267,50 +252,50 @@ public class Attack : State
         if (!CanAttackPlayer())
         {
             nextState = new Idle(npc, agent, anim, player);
-            shoot.Stop();
             stage = EVENT.EXIT;
         }
     }
 
     public override void Exit()
     {
-        anim.ResetTrigger("isShooting");
+        anim.ResetTrigger("isAttacking");
         base.Exit();
     }
 }
 
-public class RunAway : State
-{
-    GameObject safeLocation;
+//public class RunAway : State
+//{
+//    GameObject safeLocation;
 
-    public RunAway(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
-        : base(_npc, _agent, _anim, _player)
-    {
-        name = STATE.RUNAWAY;
-        safeLocation = GameObject.FindGameObjectWithTag("Safe");
-    }
+//    public RunAway(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
+//        : base(_npc, _agent, _anim, _player)
+//    {
+//        name = STATE.RUNAWAY;
+//        safeLocation = GameObject.FindGameObjectWithTag("Safe");
+//    }
 
-    public override void Enter()
-    {
-        anim.SetTrigger("isRunning");
-        agent.isStopped = false;
-        agent.speed = 6;
-        agent.SetDestination(safeLocation.transform.position);
-        base.Enter();
-    }
+//    public override void Enter()
+//    {
+//        anim.SetTrigger("isRunning");
+//        agent.isStopped = false;
+//        agent.speed = 6;
+//        agent.SetDestination(safeLocation.transform.position);
+//        base.Enter();
+//    }
 
-    public override void Update()
-    {
-        if (agent.remainingDistance < 1.0f)
-        {
-            nextState = new Idle(npc, agent, anim, player);
-            stage = EVENT.EXIT;
-        }
-    }
+//    public override void Update()
+//    {
+//        if (agent.remainingDistance < 1.0f)
+//        {
+//            nextState = new Idle(npc, agent, anim, player);
+//            stage = EVENT.EXIT;
+//        }
+//    }
 
-    public override void Exit()
-    {
-        anim.ResetTrigger("isRunning");
-        base.Exit();
-    }
-}
+//    public override void Exit()
+//    {
+//        anim.ResetTrigger("isRunning");
+//        base.Exit();
+//    }
+
+//}
